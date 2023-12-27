@@ -1,0 +1,30 @@
+
+{% extends "main.html" %}
+
+{% block title %}
+{% if item %}Edit quiz details{% else %}Add quiz{% endif %}
+{% endblock %}
+
+{% block main %}
+<div class="w-50 w-sm-100 mx-auto">
+    {% if item  %}
+    <h2 class="mb-3">Edit quiz details</h2>
+    <form action="/edit-quiz-details/{{item[0].id}}" method="post">
+    {% else %}
+    <h2 class="mb-3">Add quiz</h2>
+    <form action="/add-quiz" method="post">
+    {% endif %}
+        <div class="mb-3">
+            <input autocomplete="off" autofocus class="form-control " id="title" name="title" placeholder="Title" {%if item%}value="{{ item[0].name | safe }}"{% endif %} type="text">
+        </div>
+        <div class="mb-3">
+            <textarea rows="3" class="form-control" id="desc" name="desc" placeholder="Description" >{%if item %}{{ item[0].details | safe}}{% endif %}</textarea>
+        </div>
+        <input type="checkbox" id="public" name="public" value="public"{% if item and item[0].public %}checked{% endif %}>
+        <label class="mb-3" for="public">public</label></br>
+        <!-- <input type="checkbox" id="shownow" name="shownow" value="shownow"> -->
+        <!-- <label class="mb-3"for="shownow">show answers after every question (as opposed to at the end of the quiz)</label></br> -->
+        <button class="btn btn-primary" id="quizsaver" disabled type="submit">Save {% if not item %} and add questions {% endif %}</button>
+    </form>
+</div>
+{% endblock %}

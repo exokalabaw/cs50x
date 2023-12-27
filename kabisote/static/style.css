@@ -1,0 +1,112 @@
+#quizitems{
+    padding-left: 1rem;
+}
+.btn-secondary{
+    font-size: .8rem;
+    padding: .3rem .6rem;
+}
+.btn-secondary.smaller{
+    font-size: .8rem;
+    padding: .2rem .375rem;
+}
+.tfield{
+    position: relative;
+}
+.xout, .xout:hover{
+    width: 20px;
+    height: 20px;
+    line-height: 18px;
+    display: block;
+    text-decoration: none;
+    text-align: center;
+    color: #fff;
+    background-color: #ff572e;
+    position: absolute!important;
+    top: -7px;
+    right: -7px;
+    border-radius: 20%;
+}
+.tfield label{
+    font-size: small;
+}
+.multiradio{
+    height: 10px;
+}
+.multiwrap > div{
+    border: 1px solid #ced4da;
+    padding: .75rem 1rem;
+    margin-bottom: 1.5rem;
+    border-radius: 10px;
+    position: relative;
+}
+#quizitems > li{
+    border-bottom: 1px dotted #ced4da;
+}
+.modal-footer{
+    justify-content: center;
+}
+.hidden{
+    display:none;
+}
+.cheverly{
+    position: absolute;
+    right: 15px;
+    line-height: 0px;
+
+}
+.chevup{
+    top: 1rem;
+}
+.chevdown{
+    bottom: 15px;
+}
+@keyframes slidein {
+    from {
+      right: -10px;
+      bottom: -10px
+    }
+
+    to {
+      right: 100px;
+      bottpm: 100px
+    }
+  }
+#ordersaver{
+    position: fixed;
+    right:100px;
+    bottom: 100px;
+    opacity: .7;
+    color: #fff;
+    animation-duration: 500ms;
+        animation-name: slidein;
+        animation-iteration-count: 1;
+        animation-timing-function: cubic-bezier;
+}
+#meat{
+    padding-bottom: 100px!important;
+}
+.first .chevup, .last .chevdown{
+    display: none;
+}
+.cheverly:hover{
+    border: #dee3e6!important;
+}
+a, .nav-link{
+    color:#0d6efd;
+    opacity: .8;
+}
+a:hover, .nav-link:hover,
+.navbar-light .navbar-nav .nav-link:hover{
+    color:/*#fd7e14*/#0d6efd;
+    opacity: 1;
+
+}
+.navbar-expand-md .navbar-nav .nav-link{
+    padding: 0.5rem .75rem;
+}
+a.btn{
+    opacity: .95;
+}
+small{
+    opacity: .65;
+}

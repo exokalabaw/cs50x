@@ -1,0 +1,37 @@
+{% extends "main.html" %}
+
+{% block title %}
+{% if userid%}{{ plist[0].username }}'s {% endif %}Public Quizzes
+{% endblock %}
+
+{% block main %}
+    <h2>{% if userid%}{{ plist[0].username }}'s {% endif %}Public Quizzes</h2>
+    <table class="table table-striped">
+        <thead>
+            <tr >
+                <th  class="text-start" >Quiz</th>
+                <th>Creator</th>
+                <th>Updated Date</th>
+            </tr>
+        </thead>
+            <tbody>
+                {% for item in plist %}
+                <tr>
+                    <td  class="text-start w-75"><a href="/quiz/{{ item.id }}">{{ item.name | safe }}</a><br/><p>{{item.details | safe}}</p></td>
+                    {% if userid%}
+                    <td>{{ item.username | safe }}</td>
+                    {% else %}
+                    <td><a href="/public-quizzes/{{ item.userid }}">{{ item.username | safe }}</a></td>
+                    {% endif %}
+                    <td>{{ item.date }}</td>
+
+                </tr>
+                {% endfor %}
+
+            </tbody>
+
+        </thead>
+    </table>
+
+    </form>
+{% endblock %}

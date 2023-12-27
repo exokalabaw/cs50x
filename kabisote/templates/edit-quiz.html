@@ -1,0 +1,75 @@
+
+{% extends "main.html" %}
+
+{% block title %}
+    edit quiz
+{% endblock %}
+
+{% block main %}
+<div class="w-75 w-sm-100 mx-auto pb-8">
+    <h2 class="mb-3 ">Edit quiz</h2>
+            <h3>{{ item[0].name | safe}} <small>{% if not item[0].public %}(private){% else %}(public){% endif %}</small></h3>
+
+            <p>{{item[0].details | safe}}</p>
+    <div id="tcontainer">
+    <div id="tfields" class="multiwrap">
+        {% for question in questions %}
+            <div  data-order-number='{{loop.index}}' data-item-id='{{question.id}}' class="mb-3 tfield  {%if loop.first %}first{% endif %} {%if loop.last %}last{% endif %}">
+                <h5 >{{question.question}}</h5>
+                {%if question.item_type == 'textbox' %}
+                    <p><small>(textbox)<br/>possible answers:</small></p>
+                    <ul>
+                        {% for pa in question.answer_list[0]%}
+                        <li class="text-dark">{{pa}}</li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                <p><small>(multiple choice)<br/>options:</small></p>
+                    <ul>
+                        {% for i in question.answer_options %}
+                        <li class="text-dark">
+                            {% if i['correct']%}
+                            <small class="text-success">(correct)</small>
+                            {% else %}
+                            <small class="text-danger">(incorrect)</small>
+                            {% endif %}
+                        {{i['pa']}}
+                        </li>
+                        {% endfor %}
+                    </ul>
+                {%endif%}
+                <div class="inline-block">
+                    <a class="btn btn-secondary smaller mb-2 me-1" href="/edit-quiz-item/{{question.id}}">Edit</a>
+                    <a class="btn btn-secondary smaller btn-danger mb-2 me-1" href="/delete-quiz-item/{{question.id}}">Delete</a>
+                </div>
+
+                <button data-direction="up" class="chevup cheverly btn btn-light">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-double-up" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M7.646 2.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 3.707 2.354 9.354a.5.5 0 1 1-.708-.708l6-6z"/>
+                        <path fill-rule="evenodd" d="M7.646 6.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 7.707l-5.646 5.647a.5.5 0 0 1-.708-.708l6-6z"/>
+                      </svg>
+                    </button>
+
+
+                <button data-direction="down" class="chevdown cheverly btn btn-light">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-double-down" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M1.646 6.646a.5.5 0 0 1 .708 0L8 12.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
+                        <path fill-rule="evenodd" d="M1.646 2.646a.5.5 0 0 1 .708 0L8 8.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
+                      </svg>
+                </button>
+            </div>
+        {% endfor %}
+    </div>
+    </div>
+    <div class="inline-block">
+    <a class="btn btn-secondary mb-2" href="/edit-quiz-details/{{item[0].id}}">Edit quiz details</a>
+    <a class="btn btn-secondary mb-2" href="/add-textbox/{{ item[0].id }}">Add a question with answer textbox</a>
+    <a class="btn btn-secondary mb-2" href="/add-multi/{{ item[0].id }}">Add a multiple choice question</a><br/>
+
+    <a class="btn btn-primary mb-2" href="/quiz/{{item[0].id}}">Go to quiz</a>
+
+    </div>
+
+
+</div>
+{% endblock %}

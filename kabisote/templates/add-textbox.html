@@ -1,0 +1,28 @@
+
+{% extends "main.html" %}
+
+{% block title %}
+    add a question with a textbox answer for -
+{% endblock %}
+
+{% block main %}
+<form class="w-50 w-sm-100 mx-auto" action="/add-textbox/submit" method="post">
+    <h2 class="mb-3">Add a question with a textbox answer</h2>
+        <div class="mb-3">
+            <input autocomplete="off" autofocus class="form-control formcheck" id="question" name="question" placeholder="Question" type="text">
+        </div>
+        <div id="tfields">
+            <div class="mb-3 tfield">
+                <input type="radio" name="quizid" checked value={{quizid}} name="quizid" id="quizid" style="display: none;">
+                <input autocomplete="off" autofocus class="form-control answerfield formcheck" id="firstanswer" name="answer" placeholder="Answer" type="text">
+            </div>
+        </div>
+
+        <div>
+        <a id="addanother" class="btn btn-secondary mb-2">Add another possible answer</a>
+        <a class="btn btn-secondary mb-2" href="/edit-quiz/{{quizid}}">Discard and go back</a></br>
+        <button id="savequestion" class="btn btn-primary" disabled type="submit">Save question</button>
+
+        </div>
+    </form>
+{% endblock %}

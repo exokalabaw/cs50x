@@ -1,0 +1,44 @@
+
+{% extends "main.html" %}
+
+{% block title %}
+    quiz - {{ item[0].name | safe}}
+{% endblock %}
+
+{% block main %}
+<div class="w-75 w-sm-100 mx-auto">
+    <h2 class="mb-3 ">{{ item[0].name  | safe }}</h2>
+    <div class="mb-4">
+            <p>{{item[0].details  | safe}}</p>
+    </div>
+    <form>
+        <ol id="quizitems" >
+        {% for question in questions %}
+            <li class="tfiel mb-3">
+                <div class="question_item mb-4">
+
+                    <h6 class="mb-3">{{ question.question | safe }}</h6>
+                    {%if question.item_type == 'textbox' %}
+                    <input type="text" class="form-control w-50 w-sm-100 quizitem" id="question{{question.question_number}}" name="question{{question.question_number}}" placeholder="answer"/>
+                    {% elif question.item_type == 'multiple_choice' %}
+
+
+                        {% for i in question.answer_options %}
+
+                        <input type="radio" class="quizitem" id="{{ i['correct'] }}{{ loop.index }}{{question.id}}" name="question{{question.question_number}}" value="{{ i['correct'] }}" />
+                        <label class="" for="{{ i['correct'] }}{{ loop.index }}{{question.id}}">{{ i['pa'] }}</label><br>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            </li>
+        {% endfor %}
+        </ol>
+        <div class="inline-block">
+            <button data-bs-toggle="modal" data-bs-target="#staticBackdrop" type="button" id="checkscore" disabled class="btn btn-primary">Submit and Check Results</button>
+            <a class="btn btn-primary hidden " id="retake" href="/quiz/{{item[0].id}}">Retake</a>
+
+        </div>
+    </form>
+
+</div>
+{% endblock %}

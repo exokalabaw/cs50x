@@ -1,0 +1,44 @@
+{% extends "main.html" %}
+
+{% block title %}
+    My Quizzes
+{% endblock %}
+
+{% block main %}
+    <h2>My Quizzes</h2>
+    <table class="table table-striped">
+        <thead>
+            <tr >
+                <th  class="text-start" >Quiz</th>
+                <th>Updated Date</th>
+                <!-- <th>times taken</th>
+                <th>participants</th> -->
+                <th class="text-center">edit/delete</th>
+            </tr>
+        </thead>
+            <tbody>
+                {% for item in mylist %}
+                <tr>
+                    <td  class="text-start"><a href="/quiz/{{ item.id }}">{{ item.name | safe }}</a><small>{%if item.public %} (public){% else %} (private){% endif %}</small><br/><p>{{item.details | safe}}</p></td>
+                    <td>{{ item.date }}</td>
+                    <td class="text-center"><a href="/edit-quiz/{{ item.id }}">EDIT</a>&nbsp;&nbsp;<a class="text-red" href="/delete/{{ item.id }}">DELETE</a></td>
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        <tfoot>
+            <tr>
+                <td></td>
+                <td></td>
+                <td class="text-end">
+                <a href="/add-quiz" >Add a quiz</a>
+                </td>
+            </tr>
+
+        </tfoot>
+    </table>
+
+    </form>
+{% endblock %}

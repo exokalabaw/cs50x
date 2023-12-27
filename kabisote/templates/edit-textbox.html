@@ -1,0 +1,45 @@
+
+{% extends "main.html" %}
+
+{% block title %}
+    Edi question with a textbox answer for -
+{% endblock %}
+
+{% block main %}
+<form class="w-50 w-sm-100 mx-auto" action="/edit-textbox/submit" method="post">
+    <h2 class="mb-3">Edit question with a textbox answer</h2>
+        <div class="mb-3">
+            <h6>Question:</h6>
+            <input autocomplete="off" value="{{ details.question }}" class="form-control formcheck" id="question" name="question" placeholder="Question" type="text">
+        </div>
+        <div id="tfields">
+            <h6>Answer/s</h6>
+            <input type="radio" name="itemid" checked value={{ details.id}} name="itemid" id="itemid" style="display: none;">
+            <input type="radio" name="quizid" checked value={{quizid}} name="quizid" id="quizid" style="display: none;">
+            <div class="mb-3 tfield">
+                <input autocomplete="off" value="{{ details.answer_list[0][0] }}" class="form-control answerfield formcheck" id="firstanswer" name="answer" placeholder="Answer" type="text">
+            </div>
+            {% for pa in details.answer_list[0] %}
+            {%if loop.index >= 2%}
+            <div class="mb-3 tfield" id="{{loop.index}}">
+
+
+
+                <input autocomplete="off" autofocus value="{{ pa }}" class="form-control answerfield formcheck" id="answer{{ loop.index }}" name="answer{{ loop.index }}" placeholder="Answer" type="text">
+
+                <a class='xout' id="d{{loop.index}}" >-</a>
+
+
+            </div>
+            {% endif%}
+            {% endfor %}
+        </div>
+
+        <div>
+        <a id="addanother" class="btn btn-secondary mb-2">Add another possible answer</a>
+        <a class="btn btn-secondary mb-2" href="/edit-quiz/{{quizid}}">Discard and go back</a></br>
+        <button id="savequestion" class="btn btn-primary" disabled type="submit">Save question</button>
+
+        </div>
+    </form>
+{% endblock %}

@@ -1,0 +1,38 @@
+
+{% extends "main.html" %}
+
+{% block title %}
+    add a multiple choice question for -
+{% endblock %}
+
+{% block main %}
+
+<form class="w-50 w-sm-100 mx-auto" action="/add-multi/submit" method="post">
+
+    <h2 class="mb-3">Add a multiple choice question</h2>
+        <div class="mb-3">
+            <input autocomplete="off" autofocus class="form-control formcheck" id="question" name="question" placeholder="Question" type="text">
+        </div>
+        <div id="tfields" class="multiwrap" >
+            
+            <input type="radio" name="quizid" checked value={{quizid}} name="quizid" id="quizid" style="display: none;">
+            <div class="mb-3 tfield ">
+                <input autocomplete="off" autofocus class="form-control mb-2 formcheck" id="answer1" name="a1" placeholder="Answer" type="text">
+
+                <input class="multiradio" checked id="cb1" type="radio" id="correct1" name="answer" value="a1">
+                <label  for="cb1">Correct answer</label></br>
+            </div>
+            <div class="mb-3 tfield">
+                <input autocomplete="off" autofocus class="form-control mb-2 formcheck" id="answer2" name="a2" placeholder="Answer" type="text">
+
+                <input class="multiradio" id="cb2" type="radio" id="correct2" name="answer" value="a2">
+                <label  for="cb1">Correct answer</label></br>
+            </div>
+        </div>
+        <div>
+            <a class="btn btn-secondary mb-2" id="addanother" >Add another option</a>
+            <a class="btn btn-secondary mb-2" href="/edit-quiz/{{quizid}}">Discard and go back</a></br>
+            <button id="savequestion" class="btn btn-primary mb-2" type="submit" disabled >Save question</button>
+        </div>
+    </form>
+{% endblock %}

@@ -1,0 +1,38 @@
+
+{% extends "main.html" %}
+
+{% block title %}
+    Edit multiple choice question
+{% endblock %}
+
+{% block main %}
+
+<form class="w-50 w-sm-100 mx-auto" action="/edit-multi/submit" method="post">
+    <h2 class="mb-3">Edit multiple choice question</h2>
+        <div class="mb-3">
+            <input autocomplete="off" autofocus class="form-control formcheck" id="question" value="{{details.question}}" name="question" placeholder="Question" type="text">
+        </div>
+        <div id="tfields" class="multiwrap" >
+
+            <input type="radio" name="quizid" checked value={{quizid}} name="quizid" id="quizid" style="display: none;">
+            <input type="radio" name="itemid" checked value={{details.id}} name="itemid" id="itemid" style="display: none;">
+
+            {% for a in details.answer_options %}
+            <div id="{{loop.index}}"class="mb-3 tfield">
+                <input autocomplete="off"  autofocus class="form-control mb-{{loop.index}} formcheck nondefault" id="answer{{loop.index}}" name="a{{loop.index}}" placeholder="Answer" value="{{a.pa}}"type="text">
+
+                <input class="multiradio" {% if a.correct %}checked {% endif %} id="cb{{loop.index}}" type="radio" id="{{loop.index}}" name="answer" value="a{{loop.index}}">
+                <label  for="cb1">Correct answer</label></br>
+                {% if loop.index > 2%}
+                <a class='xout' id="d{{loop.index}}"  >-</a>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+        <div>
+            <a class="btn btn-secondary mb-2" id="addanother" >Add another option</a>
+            <a class="btn btn-secondary mb-2" href="/edit-quiz/{{quizid}}">Discard and go back</a></br>
+            <button id="savequestion" disabled class="btn btn-primary mb-2" type="submit">Save question</button>
+        </div>
+    </form>
+{% endblock %}

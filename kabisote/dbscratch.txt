@@ -1,0 +1,76 @@
+CREATE TABLE users(
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    username TEXT NOT NULL,
+    hash TEXT NOT NULL
+);
+
+CREATE TABLE quiz(
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    user_id int NOT NULL,
+    created datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    public BOOLEAN,
+    name varchar NOT NULL,
+    details varchar NULL,
+    published boolean,
+    FOREIGN KEY (user_id) REFERENCES users(id)
+);
+
+CREATE TABLE quiz_history(
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    quiz_id INTEGER NOT NULL,
+    user_id INTEGER NOT NULL,
+    date_taken datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    score json NOT NULL,
+    answers json NOT NULL,
+    public boolean,
+    FOREIGN KEY (quiz_id) REFERENCES quiz(id),
+    FOREIGN KEY (user_id) REFERENCES users(id)
+);
+
+CREATE TABLE quiz_item(
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+
+    quiz_id INTEGER NOT NULL,
+    answer_options json NULL,
+    answer_list json NULL,
+    is_case_sensitive boolean,
+    question_number int NOT NULL,
+    item_type text NOT NULL,
+    question text NOT NULL,
+    CHECK (item_type in('textbox','multiple_choice', 'multiple_answer')),
+    FOREIGN KEY (quiz_id) REFERENCES quiz(id)
+
+);
+
+** quiz item answer options are the options to pick from if it's a multiple choice question
+** answer list is a list of possible correct answers
+** questuion number is the number relative to the order of questions in the quiz
+json formats:
+score = '{"numitems":,"score":}'
+answers = '{"itemnumber":, "answer":,"correct":}'
+answerlist = '{}'
+answeroptions = '{}'
+
+--- insert quiz --
+INSERT INTO quiz(user_id , public, name, details, published)
+VALUES(4, false, "Jepoardy episode 31312 LEAK","You did not get this from me, Edna. Don't forget about me when you win", false);
+-- insert quiz item --
+
+UPDATE quiz SET name = 'this is the second quiz for user 1', details = 'short details', udpated = datetime('now') WHERE  user_d = 1 and id=;
+
+----select public quizzes----
+SELECT DISTINCT quiz.id, users.username as username, DATE(quiz.updated) as date, quiz.name, quiz.details FROM quiz INNER JOIN users ON quiz.user_id = users.id ORDER BY updated ;
+
+INSERT INTO quiz_item(question, quiz_id, answer_options , answer_list, is_case_sensitive, question_number, item_type )
+VALUES  ("what is seven minus four?",1, '{}','{"three", 3}', false, 1, 'textbox' )
+        ("the answer to this question should be banana", 1, '[{"apple": 0, "banana":1, "pear":0,"pineapple":0}]','{}', false, 1, 'multiple_choice' );
+        ("what is the SQL command to look for things?",1, '{}','{"SELECT", select}', false, 1, 'textbox' )
+
+'[{"pa": "apple", "correct": 0 },{"pa": "banana", "correct"
+: 1 },{"pa": "pear", "correct": 0 }{"pa": "pineaapple", "correct": 0 }]'
+
+UPDATE quiz_item  SET answer_options  = '[{"pa": "apple", "correct": 0 },{"pa": "banana", "correct": 1 },{"pa": "pear", "correct": 0 }{"pa": "pineaapple", "correct": 0 }]' WHERE id=4;
+
+
+INSERT INTO quiz_item(question, quiz_id,answer_options, answer_list, is_case_sensitive, qu)
